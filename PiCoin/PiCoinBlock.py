@@ -7,7 +7,7 @@ import hashlib
 import time
 import array
 
-from PiCoinWrapTransaction import picoinwraptransaction2dict
+from PiCoin.PiCoinWrapTransaction import picoinwraptransaction2dict
 
 class PiCoinBlock:
     def __init__(self, index, timestamp, transactions, proof, prev_hash):

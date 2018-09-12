@@ -5,7 +5,7 @@ import json
 import time
 import hashlib
 
-from PiCoinTransaction import picointransaction2dict, PiCoinTransaction
+from PiCoin.PiCoinTransaction import picointransaction2dict, PiCoinTransaction
 
 
 class PiCoinWrapTransaction: #交易纪录类

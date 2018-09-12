@@ -3,11 +3,11 @@
 # @Time    : 2018/9/11 15:41
 import hashlib
 
-from Block import Block
-from Block import InvalidBlock
-from Message import ChaorsMessage
-from Message import InvalidMessage
-from Transaction import Transaction
+from PiCoin.Block import Block
+from PiCoin.Block import InvalidBlock
+
+from PiCoin.Transaction import Transaction
+from PiCoin.WrapTransaction import WrapTransaction
 
 
 class BlockChain:
@@ -41,9 +41,9 @@ if __name__ == '__main__':
         t2 = Transaction("chaors2", "yajun2", 999999999)
         t3 = Transaction("chaors4", "yajun4", 999999999)
 
-        m1 = ChaorsMessage(t1)
-        m2 = ChaorsMessage(t2)
-        m3 = ChaorsMessage(t3)
+        m1 = WrapTransaction(t1)
+        m2 = WrapTransaction(t2)
+        m3 = WrapTransaction(t3)
 
         block1 = Block(m1, m2, m3)
         block1.seal()
@@ -51,8 +51,8 @@ if __name__ == '__main__':
         t21 = Transaction("chaors", "yajun", 999999999)
         t22 = Transaction("chaors2", "yajun2", 999999999)
 
-        m21 = ChaorsMessage(t21)
-        m22 = ChaorsMessage(t22)
+        m21 = WrapTransaction(t21)
+        m22 = WrapTransaction(t22)
 
         block2 = Block(m21, m22)
         block2.seal()
@@ -62,10 +62,10 @@ if __name__ == '__main__':
         t33 = Transaction("chaors4", "yajun4", 999999999)
         t34 = Transaction("chaors8", "yajun8", 999999999)
 
-        m31 = ChaorsMessage(t31)
-        m32 = ChaorsMessage(t32)
-        m33 = ChaorsMessage(t33)
-        m34 = ChaorsMessage(t34)
+        m31 = WrapTransaction(t31)
+        m32 = WrapTransaction(t32)
+        m33 = WrapTransaction(t33)
+        m34 = WrapTransaction(t34)
 
         block3 = Block(m31, m32, m33, m34)
         block3.seal()

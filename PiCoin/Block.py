@@ -19,9 +19,9 @@
 
 import time
 import hashlib
-from WrapTransaction import WrapTransaction
-from WrapTransaction import InvalidMessage
-from Transaction import Transaction
+from PiCoin.WrapTransaction import WrapTransaction
+from PiCoin.WrapTransaction import InvalidMessage
+from PiCoin.Transaction import Transaction
 
 
 class Block:

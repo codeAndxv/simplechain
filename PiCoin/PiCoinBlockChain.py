@@ -10,9 +10,9 @@ from uuid import uuid4  #签名
 import requests  #网络请求
 from flask import Flask, jsonify, request  #flask网络框架
 
-from PiCoinBlock import PiCoinBlock, picoinblock2dict
-from PiCoinTransaction import PiCoinTransaction
-from PiCoinWrapTransaction import PiCoinWrapTransaction
+from PiCoin.PiCoinBlock import PiCoinBlock, picoinblock2dict
+from PiCoin.PiCoinTransaction import PiCoinTransaction
+from PiCoin.PiCoinWrapTransaction import PiCoinWrapTransaction
 
 
 class PiCoinBlockChain:

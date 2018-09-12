@@ -4,7 +4,7 @@
 
 import time
 import hashlib
-from Transaction import Transaction
+from PiCoin.Transaction import Transaction
 
 class WrapTransaction: #交易纪录类
     def __init__(self, data):
