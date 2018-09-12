@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/9/11 14:39
 
-import datetime
+import time
 
 
 class Transaction:#交易类
@@ -13,9 +13,7 @@ class Transaction:#交易类
         self.payer = payer
         self.recer = recer
         self.count = count
-        self.timestamp = datetime.datetime.now()
+        self.timestamp = time.time()
 
     def __repr__(self):
         return str(self.payer) + "  pay  "+ str(self.recer)+ "   "+str(self.count) + "  in  " + str(self.timestamp)
-
-c

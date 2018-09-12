@@ -2,17 +2,18 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/9/11 14:47
 
-import datetime
+import time
 import hashlib
 from Transaction import Transaction
 
-class ChaorsMessage: #交易纪录类
+class WrapTransaction: #交易纪录类
     def __init__(self, data):
         self.data = data    #交易信息
         self.hash = None  #自身哈希
         self.prev_hash = None   #上一个交易记录的哈希
-        self.timestamp = datetime.datetime.now()
+        self.timestamp = time.time()
         self.payload_hash = self._hash_payload()    #锁定哈希
+
     def _hash_payload(self): #交易哈希
         return hashlib.sha256((str(self.timestamp)+ str(self.data)).encode("utf-8")).hexdigest()
 
@@ -48,8 +49,8 @@ if __name__ == '__main__': #单独模块测试
         t1 = Transaction("chaors", "yajun", 999999999)
         t2 = Transaction("chaors2", "yajun2", 999999999)
 
-        m1 = ChaorsMessage(t1)
-        m2 = ChaorsMessage(t2)
+        m1 = WrapTransaction(t1)
+        m2 = WrapTransaction(t2)
 
         #交易密封
         m1.seal()

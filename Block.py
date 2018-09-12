@@ -17,16 +17,16 @@
 #     'previous_hash': "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
 # }
 
-import datetime
+import time
 import hashlib
-from Message import ChaorsMessage
-from Message import InvalidMessage
+from WrapTransaction import WrapTransaction
+from WrapTransaction import InvalidMessage
 from Transaction import Transaction
 
 
 class Block:
     def __init__(self, *args):
-        self.messagelist = []       #存储多个交易记录
+        self.transactionlist = []       #存储多个交易记录
         self.timestamp = None       #当前时间戳
         self.hash = None
         self.prev_hash = None
@@ -34,37 +34,37 @@ class Block:
         #把所有的交易都加入到交易列表中
         if args:
             for arg in args:
-                self.add_message(arg)
+                self.add_transaction(arg)
 
-    def add_message(self, msg):  #增加交易信息
+    def add_transaction(self, msg):  #增加交易信息
         #判断是否已经有第一条交易信息
-        if len(self.messagelist) > 0 :
-            msg.link(self.messagelist[-1])
+        if len(self.transactionlist) > 0 :
+            msg.link(self.transactionlist[-1])
         msg.seal()
         msg.validate()
-        self.messagelist.append(msg)
+        self.transactionlist.append(msg)
 
     def link(self, block):   #链接
         #当前区块的上个哈希值为上个区块哈希值
         block.hash = self.prev_hash
 
     def seal(self):  #区块封装，带有时间戳和哈希值的数据结构
-       self.timestamp = datetime.datetime.now()
+       self.timestamp = time.time()
        self.hash = self._hash_block()
 
      #求区块的哈希值
     def _hash_block(self):
         sum = ""
-        for message in self.messagelist:
-           sum = sum + str(message.hash)
+        for transaction in self.transactionlist:
+           sum = sum + str(transaction.hash)
         return hashlib.sha256((str(self.prev_hash) +
                               str(self.timestamp) +
                               sum).encode("utf-8")).hexdigest()
 
     def validate(self):  #区块合法性验证
-        for i, msg in enumerate(self.messagelist):
+        for i, msg in enumerate(self.transactionlist):
            msg.validate()
-           if i > 0 and msg.prev_hash != self.messagelist[i-1].hash:
+           if i > 0 and msg.prev_hash != self.transactionlist[i-1].hash:
                raise InvalidBlock("无效block，第{}条交易记录被修改".format(i)+ str(self))
 
         return str(self) + "block ok..."
@@ -82,15 +82,15 @@ if __name__ == '__main__':
        t2 = Transaction("chaors2", "yajun2", 999999999)
        t3 = Transaction("chaors4", "yajun4", 999999999)
 
-       m1 = ChaorsMessage(t1)
-       m2 = ChaorsMessage(t2)
-       m3 = ChaorsMessage(t3)
+       m1 = WrapTransaction(t1)
+       m2 = WrapTransaction(t2)
+       m3 = WrapTransaction(t3)
 
        block = Block(m1, m2, m3)
        block.seal()
        print(block)
        # m1.data = "kkkk"
-       block.messagelist[1] = m3
+       block.transactionlist[1] = m3
        block.validate()
 
    except InvalidMessage as e:
